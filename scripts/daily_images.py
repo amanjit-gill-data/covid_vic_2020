@@ -25,6 +25,18 @@ date_list.remove('VIC_LGA__3')
 date_list.remove('geometry')
 date_list.remove('lga')
 
+# define paths where image files will be stored
+MELB_CASES_PATH = '../data/images/melb/cases_absolute/'
+VIC_CASES_PATH = '../data/images/all_vic/cases_absolute/'
+
+# define function for visualising one date
+def create_image(gdf, col_name, path, img_num):
+    covid_map = gdf.plot(figsize = (14,10), column = col_name, cmap = cmap, k = k, 
+                         vmin = 0, vmax = vmax, edgecolor = 'lightblue')
+    covid_map.axis('off')
+    plt.savefig(path + str(img_num).zfill(3) + '.png')
+    plt.close()
+
 # create list of melb lgas
 melb_lgas = ['Banyule','Bayside','Boroondara','Brimbank','Cardinia','Casey','Darebin','Frankston','Glen Eira',
 'Greater Dandenong','Hobsons Bay','Hume','Kingston','Knox','Manningham','Maribyrnong','Maroondah','Melbourne',
@@ -46,23 +58,17 @@ vmin = 0
 
 # if today's max hasn't beaten any previous value, just stick with the same scale as before
 if (max_prev_hundreds >= max_today_hundreds):
-    # create map for just today, and keep all the previous maps
+    # create maps for just today, and keep all the previous maps
     vmax = max_prev_hundreds * 100
     k = vmax/10 # create bin size of 10
-    covid_map = melb_geo_df.plot(figsize = (14,10), column = date_list[-1], cmap = cmap, k = k, vmin = 0, vmax = vmax, 
-                 edgecolor = 'lightblue', legend = True)
-    covid_map.axis('off')
     image_number = len(date_list) - 1
-    plt.savefig('../data/images/melb/cases_absolute/' + str(image_number).zfill(3) + '.png')
-    plt.close()
+    create_image(melb_geo_df, date_list[-1], MELB_CASES_PATH, image_number)
+    create_image(vic_geo_df, date_list[-1], VIC_CASES_PATH, image_number)
     
 else:
     # replace all maps with new ones, using the new vmax in the scale
     vmax = max_today_hundreds * 100
     k = vmax/10 # create bin size of 10
     for i in range(len(date_list)):
-        covid_map = melb_geo_df.plot(figsize = (14,10), column = date_list[i], cmap = cmap, k = k, vmin = 0, vmax = vmax, 
-                     edgecolor = 'lightblue', legend = True)
-        covid_map.axis('off')
-        plt.savefig('../data/images/melb/cases_absolute/' + str(i).zfill(3) + '.png')
-        plt.close()
+        create_image(melb_geo_df, date_list[i], MELB_CASES_PATH, i)
+        create_image(vic_geo_df, date_list[i], VIC_CASES_PATH, i)
