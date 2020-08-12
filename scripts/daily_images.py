@@ -1,6 +1,7 @@
 import geopandas as gpd
+import matplotlib.cm as cm
+import matplotlib.colors as col
 import matplotlib.pyplot as plt
-from matplotlib.colors import LinearSegmentedColormap
 import pandas as pd
 import math
 
@@ -15,7 +16,7 @@ vic_geo_df = pd.merge(vic_geo_df[['VIC_LGA__3', 'geometry']], df_all_dates, how 
     left_on = 'VIC_LGA__3', right_on = 'lga', sort = True)
 
 # create colour map that will be used for all images
-cmap = LinearSegmentedColormap.from_list(
+cmap = col.LinearSegmentedColormap.from_list(
     'covid_custom', [(0,'white'), (0.01, '#fffa86'), (0.25, 'yellow'), (0.5, 'red'), (0.75, 'brown'), (1, 'black')])
 
 # create list of dates
@@ -34,6 +35,7 @@ def create_image(gdf, col_name, path, img_num):
     covid_map = gdf.plot(figsize = (14,10), column = col_name, cmap = cmap, k = k, 
                          vmin = 0, vmax = vmax, edgecolor = 'lightblue')
     covid_map.axis('off')
+    plt.tight_layout()
     plt.savefig(path + str(img_num).zfill(3) + '.png')
     plt.close()
 
@@ -72,3 +74,9 @@ else:
     for i in range(len(date_list)):
         create_image(melb_geo_df, date_list[i], MELB_CASES_PATH, i)
         create_image(vic_geo_df, date_list[i], VIC_CASES_PATH, i)
+    # replace the old scale image with a new one
+    ax = plt.subplot()
+    plt.colorbar(cm.ScalarMappable(norm=col.Normalize(0, vmax), cmap=cmap), ax=ax)
+    ax.remove()
+    plt.savefig('../data/images/scale.svg', bbox_inches = 'tight')
+    plt.close()
