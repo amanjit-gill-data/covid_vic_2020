@@ -4,6 +4,8 @@ import matplotlib.colors as col
 import matplotlib.pyplot as plt
 import pandas as pd
 import math
+from datetime import date
+import calendar
 
 # load geometry data
 vic_geo_df = gpd.read_file('../data/VIC_LOCALITY_POLYGON_shp.geojson')
@@ -30,11 +32,21 @@ date_list.remove('lga')
 MELB_CASES_PATH = '../data/images/melb/cases_absolute/'
 VIC_CASES_PATH = '../data/images/all_vic/cases_absolute/'
 
+# set annotation coordinates
+VIC_ANNOT_COORDS = (145.5, -34.205)
+MELB_ANNOT_COORDS = (145.5, -37.45)
+
 # define function for visualising one date
-def create_image(gdf, col_name, path, img_num):
-    covid_map = gdf.plot(figsize = (14,10), column = col_name, cmap = cmap, k = k, 
-                         vmin = 0, vmax = vmax, edgecolor = 'lightblue')
-    covid_map.axis('off')
+def create_image(gdf, col_name, path, img_num, annot_coords):
+    
+    gdf.plot(figsize = (14,10), column = col_name, cmap = cmap, k = k, 
+             vmin = 0, vmax = vmax, edgecolor = 'lightblue')
+    
+    date_obj = date.fromisoformat(col_name)
+    plt.annotate(xy = annot_coords, text = calendar.month_name[date_obj.month] + ' ' + str(date_obj.day), 
+                 fontsize = 45, fontweight = 700)
+    
+    plt.axis('off')
     plt.tight_layout()
     plt.savefig(path + str(img_num).zfill(3) + '.png')
     plt.close()
@@ -64,19 +76,19 @@ if (max_prev_hundreds >= max_today_hundreds):
     vmax = max_prev_hundreds * 100
     k = vmax/10 # create bin size of 10
     image_number = len(date_list) - 1
-    create_image(melb_geo_df, date_list[-1], MELB_CASES_PATH, image_number)
-    create_image(vic_geo_df, date_list[-1], VIC_CASES_PATH, image_number)
+    create_image(melb_geo_df, date_list[-1], MELB_CASES_PATH, image_number, MELB_ANNOT_COORDS)
+    create_image(vic_geo_df, date_list[-1], VIC_CASES_PATH, image_number, VIC_ANNOT_COORDS)
     
 else:
     # replace all maps with new ones, using the new vmax in the scale
     vmax = max_today_hundreds * 100
     k = vmax/10 # create bin size of 10
     for i in range(len(date_list)):
-        create_image(melb_geo_df, date_list[i], MELB_CASES_PATH, i)
-        create_image(vic_geo_df, date_list[i], VIC_CASES_PATH, i)
+        create_image(melb_geo_df, date_list[i], MELB_CASES_PATH, i, MELB_ANNOT_COORDS)
+        create_image(vic_geo_df, date_list[i], VIC_CASES_PATH, i, VIC_ANNOT_COORDS)
     # replace the old scale image with a new one
     ax = plt.subplot()
     plt.colorbar(cm.ScalarMappable(norm=col.Normalize(0, vmax), cmap=cmap), ax=ax)
     ax.remove()
-    plt.savefig('../data/images/scale.svg', bbox_inches = 'tight')
+    plt.savefig('../web/images/scale.svg', bbox_inches = 'tight')
     plt.close()
