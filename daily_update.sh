@@ -18,5 +18,5 @@ ffmpeg -y -r:v 2.5 -i "data/images/melb/cases_absolute/%03d.png" -c:v libx264 -p
 
 # stage, commit and push changes
 git add .
-git commit -m "Test scheduled task a second time."
+git commit -m "Test scheduled task on sleep."
 git push
