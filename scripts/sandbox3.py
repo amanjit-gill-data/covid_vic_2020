@@ -18,6 +18,15 @@ app.layout = html.Div([
         ],
         value = ['Cas'],
         multi = True
+    ),
+
+    html.Label('Slider'),
+
+    dcc.Slider(
+        min=0,
+        max=5,
+        marks={i:str(i) for i in range(1, 6)},
+        value=3
     )
 ])
 
