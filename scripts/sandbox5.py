@@ -10,19 +10,24 @@ df.set_index('lga', inplace = True)
 
 app = dash.Dash(__name__)
 
-print(len(df.columns))
-print(len(df.loc[['CASEY', 'MELBOURNE']]))
-print(df.loc[['CASEY', 'MELBOURNE']])
+lga_keys = df.index.to_list()
+lga_values = [key.upper() for key in lga_keys]
+lga_dict = dict(zip(lga_keys, lga_values))
 
-fig1 = px.line(x = df.columns, y = df.loc['CASEY'])
+print(lga_dict)
 
 app.layout = html.Div([
 
-    html.H1("Daily Cases by LGA"),
+    html.H1("Daily Cases for Selected LGAs"),
 
-    dcc.Graph(figure = fig1),
-
-    dcc.Input(id = 'lga-input', value = 'MELBOURNE', type = 'text'),
+    dcc.Dropdown(
+        id = 'lga-input',
+        options = [{'label': 'Casey', 'value': 'CASEY'},
+                    {'label': 'Banyule', 'value': 'BANYULE'},
+                    {'label': 'Wyndham', 'value': 'WYNDHAM'}],
+        value = ['CASEY'],
+        multi = True
+    ),
 
     dcc.Graph(id = 'out-graph')
 ])
@@ -32,8 +37,9 @@ app.layout = html.Div([
     [Input('lga-input', 'value')]
 )
 
-def create_graph(lga_name):
-    return px.line(x = df.columns, y = df.loc[lga_name])
+def create_graph(lga_names):
+    series_list = [df.loc[lga] for lga in lga_names]
+    return px.line(x = df.columns, y = series_list)
 
 if __name__ == '__main__':
     app.run_server(debug=True)
