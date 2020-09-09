@@ -11,10 +11,9 @@ df.set_index('lga', inplace = True)
 app = dash.Dash(__name__)
 
 lga_keys = df.index.to_list()
-lga_values = [key.upper() for key in lga_keys]
-lga_dict = dict(zip(lga_keys, lga_values))
-
-print(lga_dict)
+lga_dicts = []
+for lga in lga_keys:
+    lga_dicts.append(dict(zip(['label', 'value'], [lga, lga])))
 
 app.layout = html.Div([
 
@@ -22,10 +21,8 @@ app.layout = html.Div([
 
     dcc.Dropdown(
         id = 'lga-input',
-        options = [{'label': 'Casey', 'value': 'CASEY'},
-                    {'label': 'Banyule', 'value': 'BANYULE'},
-                    {'label': 'Wyndham', 'value': 'WYNDHAM'}],
-        value = ['CASEY'],
+        options = lga_dicts,
+        value = ['MELBOURNE'],
         multi = True
     ),
 
@@ -38,8 +35,25 @@ app.layout = html.Div([
 )
 
 def create_graph(lga_names):
-    series_list = [df.loc[lga] for lga in lga_names]
-    return px.line(x = df.columns, y = series_list)
+
+    if (len(lga_names) > 0):
+        series_list = [df.loc[lga] for lga in lga_names]
+        max_yval = max([series.max() for series in series_list])
+        fig = px.line(
+            x = df.columns,
+            y = series_list, 
+            range_y = [0, max_yval+10],
+            labels = {'x': 'Date', 'value': 'Active Cases'}
+        )
+    else:
+        fig = px.line(
+            x = df.columns,
+            y = [0]*len(df.columns),
+            range_y= [0, 10],
+            labels = {'x': 'Date', 'y': 'Active Cases'}
+        )
+    fig.update_xaxes(tick0 = '2020-07-01', dtick = 'M1')
+    return fig
 
 if __name__ == '__main__':
     app.run_server(debug=True)
