@@ -12,6 +12,7 @@ app = dash.Dash(__name__)
 
 lga_keys = df.index.to_list()
 lga_dicts = []
+
 for lga in lga_keys:
     lga_dicts.append(dict(zip(['label', 'value'], [lga, lga])))
 
@@ -53,6 +54,12 @@ def create_graph(lga_names):
             labels = {'x': 'Date', 'y': 'Active Cases'}
         )
     fig.update_xaxes(tick0 = '2020-07-01', dtick = 'M1')
+    fig.update_layout(legend = dict(
+        yanchor = 'top',
+        y = 0.99,
+        xanchor = 'left',
+        x = 0.01
+    ))
     return fig
 
 if __name__ == '__main__':
