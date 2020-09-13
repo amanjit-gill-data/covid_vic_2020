@@ -71,11 +71,13 @@ def create_graph(lga_names):
         ))
         fig.update_yaxes(range = [0, 10])
 
-    fig.update_xaxes(tick0 = '2020-07-01', dtick = 'M1')
+    fig.update_xaxes(tick0 = '2020-07-01', dtick = 'M1', tickformat = '%b %Y')
     fig.update_layout(
         legend = dict(yanchor = 'top', y = 0.99, xanchor = 'left', x = 0.01),
         xaxis_title = 'Date',
-        yaxis_title = 'Active Cases'
+        yaxis_title = 'Active Cases',
+        font_family = 'Arial',
+        font_size = 13
     )
     return fig
 
