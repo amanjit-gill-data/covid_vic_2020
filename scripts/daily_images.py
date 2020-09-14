@@ -90,5 +90,5 @@ else:
     ax = plt.subplot()
     plt.colorbar(cm.ScalarMappable(norm=col.Normalize(0, vmax), cmap=cmap), ax=ax)
     ax.remove()
-    plt.savefig('../web/images/scale.svg', bbox_inches = 'tight')
+    plt.savefig('../assets/images/scale.svg', bbox_inches = 'tight')
     plt.close()

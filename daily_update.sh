@@ -13,8 +13,8 @@ python daily_images.py
 cd ..
 
 # create videos
-ffmpeg -y -r:v 2.5 -i "data/images/all_vic/cases_absolute/%03d.png" -c:v libx264 -preset veryslow -pix_fmt yuv420p -crf 15 -an "web/videos/all_vic.mp4"
-ffmpeg -y -r:v 2.5 -i "data/images/melb/cases_absolute/%03d.png" -c:v libx264 -preset veryslow -pix_fmt yuv420p -crf 15 -an "web/videos/melb.mp4"
+ffmpeg -y -r:v 2.5 -i "data/images/all_vic/cases_absolute/%03d.png" -c:v libx264 -preset veryslow -pix_fmt yuv420p -crf 15 -an "assets/videos/all_vic.mp4"
+ffmpeg -y -r:v 2.5 -i "data/images/melb/cases_absolute/%03d.png" -c:v libx264 -preset veryslow -pix_fmt yuv420p -crf 15 -an "assets/videos/melb.mp4"
 
 # stage, commit and push changes
 git add .

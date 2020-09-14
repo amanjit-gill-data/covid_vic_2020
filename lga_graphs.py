@@ -6,12 +6,10 @@ import plotly.graph_objects as go
 import pandas as pd
 import math
 
-df = pd.read_csv('../data/all_dates.csv')
-df.set_index('lga', inplace = True)
+app = dash.Dash(__name__)
 
-external_stylesheets = ['https://github.com/amanjit-gill-data/covid19_vic/raw/master/web/css/style.css']
-#external_stylesheets = ['../web/css/style.css']
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+df = pd.read_csv('data/all_dates.csv')
+df.set_index('lga', inplace = True)
 
 # create dictionary of lga labels and values
 # to be used in the multi-select dropdown
@@ -33,7 +31,7 @@ app.layout = html.Div([
         children = [
             html.Video(
                 children = [
-                    html.Source(src = 'https://github.com/amanjit-gill-data/covid19_vic/raw/master/web/videos/melb.mp4', type = 'video/mp4'),
+                    html.Source(src = '/assets/videos/melb.mp4', type = 'video/mp4'),
                     "Video not supported"
                 ],
                 width = '45%',
@@ -42,7 +40,7 @@ app.layout = html.Div([
             ),
             html.Video(
                 children = [
-                    html.Source(src = 'https://github.com/amanjit-gill-data/covid19_vic/raw/master/web/videos/all_vic.mp4', type = 'video/mp4'),
+                    html.Source(src = '/assets/videos/melb.mp4', type = 'video/mp4'),
                     "Video not supported"
                 ],
                 width = '45%',
