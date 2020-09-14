@@ -9,7 +9,7 @@ import math
 df = pd.read_csv('../data/all_dates.csv')
 df.set_index('lga', inplace = True)
 
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+external_stylesheets = ['https://github.com/amanjit-gill-data/covid19_vic/raw/master/web/css/style.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 # create dictionary of lga labels and values
@@ -103,8 +103,8 @@ def create_graph(lga_names):
         legend = dict(yanchor = 'top', y = 0.99, xanchor = 'left', x = 0.01),
         xaxis_title = '<b>Date</b>',
         yaxis_title = '<b>Active Cases</b>',
-        font_family = 'Arial',
-        font_size = 13
+        font_family = 'Calibri',
+        font_size = 14
     )
     return fig
 

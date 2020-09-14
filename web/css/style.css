@@ -1,3 +1,8 @@
+body {
+    font-family: Calibri;
+}
+
 .video-row {
     display: flex;
+    justify-content: space-around;
 }
