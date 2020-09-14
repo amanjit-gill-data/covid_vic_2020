@@ -9,8 +9,8 @@ import math
 df = pd.read_csv('../data/all_dates.csv')
 df.set_index('lga', inplace = True)
 
-#external_stylesheets = ['https://github.com/amanjit-gill-data/covid19_vic/raw/master/web/css/style.css']
-external_stylesheets = ['../web/css/style.css']
+external_stylesheets = ['https://github.com/amanjit-gill-data/covid19_vic/raw/master/web/css/style.css']
+#external_stylesheets = ['../web/css/style.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 # create dictionary of lga labels and values
