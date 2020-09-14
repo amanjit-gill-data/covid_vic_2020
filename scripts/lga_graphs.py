@@ -9,7 +9,8 @@ import math
 df = pd.read_csv('../data/all_dates.csv')
 df.set_index('lga', inplace = True)
 
-app = dash.Dash(__name__)
+external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 # create dictionary of lga labels and values
 # to be used in the multi-select dropdown
@@ -26,6 +27,30 @@ for lga in lga_keys:
 app.layout = html.Div([
 
     html.H1("Daily Cases for Selected LGAs"),
+
+    html.Div(
+        children = [
+            html.Video(
+                children = [
+                    html.Source(src = 'https://github.com/amanjit-gill-data/covid19_vic/raw/master/web/videos/melb.mp4', type = 'video/mp4'),
+                    "Video not supported"
+                ],
+                width = '45%',
+                autoPlay = False,
+                controls = True
+            ),
+            html.Video(
+                children = [
+                    html.Source(src = 'https://github.com/amanjit-gill-data/covid19_vic/raw/master/web/videos/all_vic.mp4', type = 'video/mp4'),
+                    "Video not supported"
+                ],
+                width = '45%',
+                autoPlay = False,
+                controls = True
+            )
+        ],
+        className = 'video-row'
+    ),
 
     dcc.Dropdown(
         id = 'lga-input',
