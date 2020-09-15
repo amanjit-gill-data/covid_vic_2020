@@ -76,16 +76,15 @@ def serve_layout():
 
 # set up callback
 # when the dropdown 'lga-input' is updated, the graph 'out-graph' will be updated
+# the function create_graph() is called whenever the dropdown is updated
+# if there is at least one LGA selected, the row for each LGA is extracted from the df (as a series)
+# and put into a list of series, then each series is plotted onto the figure
+# if there are no LGAs selected, an empty graph is returned
 
 @app.callback(
     Output('out-graph', 'figure'),
     [Input('lga-input', 'value')]
 )
-
-# this function is called whenever the dropdown is updated
-# if there is at least one LGA selected, the row for each LGA is extracted from the df (as a series)
-# and put into a list of series, then each series is plotted onto the figure
-# if there are no LGAs selected, an empty graph is returned
 def create_graph(lga_names):
 
     fig = go.Figure()
