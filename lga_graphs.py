@@ -11,55 +11,67 @@ app = dash.Dash(__name__)
 df = pd.read_csv('data/all_dates.csv')
 df.set_index('lga', inplace = True)
 
-# create dictionary of lga labels and values
-# to be used in the multi-select dropdown
+# function that is called every time the page is reloaded
+# this function is used rather than just doing app.layout = html.Div(etc),
+# as that won't load the updated df until the app is stopped and restarted on the server
 
-lga_keys = df.index.to_list()
-lga_dicts = []
+def serve_layout():
 
-for lga in lga_keys:
-    lga_dicts.append(dict(zip(['label', 'value'], [lga, lga]))) # keys and values are the same
+    # reload df in case it has been updated since the app started running
 
-# set layout of app
-# heading, then multi-select dropdown, then graph
+    df = pd.read_csv('data/all_dates.csv')
+    df.set_index('lga', inplace = True)
 
-app.layout = html.Div([
+    # create dictionary of lga labels and values
+    # to be used in the multi-select dropdown
 
-    html.H1("Daily Cases for Selected LGAs"),
+    lga_keys = df.index.to_list()
+    lga_dicts = []
+    for lga in lga_keys:
+        lga_dicts.append(dict(zip(['label', 'value'], [lga, lga]))) # keys and values are the same
 
-    html.Div(
-        children = [
-            html.Video(
-                children = [
-                    html.Source(src = '/assets/videos/melb.mp4', type = 'video/mp4'),
-                    "Video not supported"
-                ],
-                width = '45%',
-                autoPlay = False,
-                controls = True
-            ),
-            html.Video(
-                children = [
-                    html.Source(src = '/assets/videos/melb.mp4', type = 'video/mp4'),
-                    "Video not supported"
-                ],
-                width = '45%',
-                autoPlay = False,
-                controls = True
-            )
-        ],
-        className = 'video-row'
-    ),
+    # return layout of app
+    # heading, then videos, then another heading, then multi-select dropdown, then graph
 
-    dcc.Dropdown(
-        id = 'lga-input',
-        options = lga_dicts,
-        value = ['MELBOURNE'],
-        multi = True
-    ),
+    return html.Div([
 
-    dcc.Graph(id = 'out-graph')
-])
+        html.H2("Daily Active Cases in Victorian LGAs"),
+
+        html.Div(
+            children = [
+                html.Video(
+                    children = [
+                        html.Source(src = '/assets/videos/melb.mp4', type = 'video/mp4'),
+                        "Video not supported"
+                    ],
+                    width = '45%',
+                    autoPlay = False,
+                    controls = True
+                ),
+                html.Video(
+                    children = [
+                        html.Source(src = '/assets/videos/all_vic.mp4', type = 'video/mp4'),
+                        "Video not supported"
+                    ],
+                    width = '45%',
+                    autoPlay = False,
+                    controls = True
+                )
+            ],
+            className = 'video-row'
+        ),
+
+        html.H2("Compare LGAs"),
+
+        dcc.Dropdown(
+            id = 'lga-input',
+            options = lga_dicts,
+            value = ['MELBOURNE'],
+            multi = True
+        ),
+
+        dcc.Graph(id = 'out-graph')
+    ])
 
 # set up callback
 # when the dropdown 'lga-input' is updated, the graph 'out-graph' will be updated
@@ -106,6 +118,8 @@ def create_graph(lga_names):
         font_size = 14
     )
     return fig
+
+app.layout = serve_layout
 
 if __name__ == '__main__':
     app.run_server(debug=True)
