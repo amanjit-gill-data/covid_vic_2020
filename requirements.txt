@@ -28,7 +28,6 @@ Flask==1.1.2
 Flask-Compress==1.5.0
 folium
 future==0.18.2
-GDAL==3.0.4
 geopandas
 idna
 importlib-metadata
