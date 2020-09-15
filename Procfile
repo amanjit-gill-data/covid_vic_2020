@@ -1,1 +1,1 @@
-web: gunicorn app:server
+web: gunicorn lga_graphs:server

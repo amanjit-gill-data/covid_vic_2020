@@ -7,6 +7,7 @@ import pandas as pd
 import math
 
 app = dash.Dash(__name__)
+server = app.server
 
 df = pd.read_csv('data/all_dates.csv')
 df.set_index('lga', inplace = True)
