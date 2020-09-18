@@ -36,34 +36,6 @@ def serve_layout():
 
     return html.Div([
 
-        html.H2("Daily Active Cases in Victorian LGAs"),
-
-        html.Div(
-            children = [
-                html.Video(
-                    children = [
-                        html.Source(src = '/assets/videos/melb.mp4', type = 'video/mp4'),
-                        "Video not supported"
-                    ],
-                    width = '45%',
-                    autoPlay = False,
-                    controls = True
-                ),
-                html.Video(
-                    children = [
-                        html.Source(src = '/assets/videos/all_vic.mp4', type = 'video/mp4'),
-                        "Video not supported"
-                    ],
-                    width = '45%',
-                    autoPlay = False,
-                    controls = True
-                )
-            ],
-            className = 'video-row'
-        ),
-
-        html.H2("Compare LGAs"),
-
         dcc.Dropdown(
             id = 'lga-input',
             options = lga_dicts,

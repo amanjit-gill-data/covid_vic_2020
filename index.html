@@ -1,19 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
+
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Second Wave</title>
+    <link rel="stylesheet" href="assets/style.css">
 </head>
+
 <body>
-    <h1>Video</h1>
-    <video height="500" width="700" controls autoplay="false" type="video/mp4">
-        <source src="assets/videos/melb.mp4">
-        Video not supported.
-    </video>
-    <video height="500" width="700" controls autoplay="false" type="video/mp4">
-        <source src="assets/videos/all_vic.mp4">
-        Video not supported.
-    </video>
+    <header>
+        <p>The 2nd Wave</p>
+        <div><a href = '#video-container'>Videos</a><a href = '#graph-container'>Graphs</a></div>
+    </header>
+    <section id = "video-container">
+        <h2>Videos</h2>
+        <p>Explanation of videos.</p>
+        <div class = "videos">
+            <video height="500" width="700" controls autoplay="false" type="video/mp4">
+                <source src="assets/videos/melb.mp4">
+                Video not supported.
+            </video>
+            <video height="500" width="700" controls autoplay="false" type="video/mp4">
+                <source src="assets/videos/all_vic.mp4">
+                Video not supported.
+            </video>
+        </div>
+    </section>
+    <section id = "graph-container">
+        <h2>Graphs</h2>
+        <p>Explanation of graphs.</p>
+        <div class = "graphs">
+            <iframe src="https://covid19-vic-graphs.herokuapp.com"></iframe>
+        </div>        
+    </section>
+    <footer>
+
+    </footer>
 </body>
+
 </html>
