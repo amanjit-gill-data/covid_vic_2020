@@ -5,24 +5,50 @@
     <meta charset="utf-8">
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/style.css">
     <link rel="stylesheet" href="assets/reset.css">
+    <link rel="stylesheet" href="assets/style.css">
 </head>
 
 <body>
     <header>
-        <p>The 2nd Wave</p>
-        <div><a href = '#video-container'>Videos</a><a href = '#graph-container'>Graphs</a></div>
+        <h1>The 2nd Wave</h1>
+        <div class = "nav-menu">
+            <a href = '#video-container'>Videos</a>
+            <a href = '#graph-container'>Graphs</a>
+        </div>
     </header>
+    <section id = "introduction">
+        <p>
+            Welcome. This website documents Victoria's progression through a second wave of COVID-19.
+            On this page, you will find videos and graphs that are updated once a day by 5:20PM AEST, 
+            after the Victorian DHHS (Department of Health and Human Services) has released its data.
+            These videos and graphs show how the number of active cases in each LGA (local government area)
+            has changed throughout the second wave.<br><br>
+
+            This website documents the second wave from June 14 onwards, as this is the last
+            date before the total number of active cases in Victoria entered double digits. From this point on,
+            the number of cases began to increase beyond the levels seen in the first wave of the virus.
+        </p>
+    </section>
     <section id = "video-container">
         <h2>Videos</h2>
-        <p>Explanation of videos.</p>
+        <p>
+            The first video shows how the virus has spread across Melbourne during the second wave. At the peak
+            of the outbreak, a few LGAs had more than 900 active cases. The video also shows how the virus has
+            retreated from Melbourne over time, in response to the strict lockdown that has been imposed by
+            the Victorian government.<br><br>
+
+            The second video shows all of Victoria. It is evident that a substantial part of the state 
+            has remained relatively untouched by the virus, even at the peak of the second wave, and that 
+            transmission of the virus has largely stayed localised around Greater Melbourne.
+        </p>
         <div class = "videos">
-            <video height="500" width="700" controls autoplay="false" type="video/mp4">
+            <video controls autoplay="false" type="video/mp4">
                 <source src="assets/videos/melb.mp4">
                 Video not supported.
             </video>
-            <video height="500" width="700" controls autoplay="false" type="video/mp4">
+            <img src="assets/images/scale.svg" alt="Scale for videos">
+            <video controls autoplay="false" type="video/mp4">
                 <source src="assets/videos/all_vic.mp4">
                 Video not supported.
             </video>
@@ -30,9 +56,15 @@
     </section>
     <section id = "graph-container">
         <h2>Graphs</h2>
-        <p>Explanation of graphs.</p>
+        <p>
+            Here, you can search or type the name(s) of one (or many) LGA(s), in order to see how the active
+            case numbers have grown and fallen throughout the second wave. The graphs share the same set of
+            axes so you can compare the progress of your selected LGAs.<br><br>
+
+            You can hover on any point of interest in order to see the number of active cases on that date.
+        </p>
         <div class = "graphs">
-            <iframe src="https://covid19-vic-graphs.herokuapp.com"></iframe>
+            <iframe src="https://covid19-vic-graphs.herokuapp.com" title="Graph of Cases vs Date"></iframe>
         </div>        
     </section>
     <footer>
