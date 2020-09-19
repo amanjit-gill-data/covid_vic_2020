@@ -62,7 +62,7 @@ h2 {
     display: flex; /* just so I can control the vertical text positioning */
     font-size: 2.5rem;
     font-weight: 600;
-    height: 80px;
+    height: 4rem;
     justify-content: center;
     margin-bottom: 2rem;
 }
@@ -81,7 +81,11 @@ video {
 }
 
 .videos img {
-    width: 7.5%;
+    width: 8%;
+}
+
+.second-scale {
+    display: none;
 }
 
 .graphs iframe {
@@ -92,4 +96,76 @@ video {
 footer {
     font-size: 0.8rem;
     text-align: center;
+}
+
+/* MEDIA QUERIES */
+
+@media only screen and (max-width: 900px) {
+
+    html {
+        font-size: 15px;
+    }
+
+    section {
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+
+    .second-scale {
+        display: block; /* show a second copy of the scale, next to the second video */
+    }
+
+    .videos {
+        flex-wrap: wrap;
+    }
+
+    .videos img {
+        width: 10%;
+    }
+
+    video {
+        width: 85%;
+    }
+
+    video:nth-child(1) {
+        margin-bottom: 1rem;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+
+    html {
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .videos img {
+        width: 13%;
+    }
+
+    video {
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+
+    h1 {
+        font-size: 1.7rem;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+
+    .videos img {
+        width: 15%
+    }
 }
