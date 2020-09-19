@@ -72,16 +72,16 @@ def create_graph(lga_names):
                 hovertemplate = '<b>Date: %{x}, Active Cases: %{y}</b>'
             ))
         max_yval = max([series.max() for series in series_list])
-        fig.update_yaxes(range = [0, math.ceil(max_yval/100)*100]) # round y-axis up to next 100
+        fig.update_yaxes(range = [0, math.ceil(max_yval/100)*100], fixedrange = True) # round y-axis up to next 100
     else:
         fig.add_trace(go.Scatter(
             x = df.columns,
             y = [0]*len(df.columns),
             hoverinfo = 'skip'
         ))
-        fig.update_yaxes(range = [0, 10])
+        fig.update_yaxes(range = [0, 10], fixedrange = True)
 
-    fig.update_xaxes(tick0 = '2020-07-01', dtick = 'M1', tickformat = '%d %b')
+    fig.update_xaxes(tick0 = '2020-07-01', dtick = 'M1', tickformat = '%d %b', fixedrange = True)
     fig.update_layout(
         legend = dict(yanchor = 'top', y = 0.99, xanchor = 'left', x = 0.01),
         xaxis_title = '<b>Date</b>',
