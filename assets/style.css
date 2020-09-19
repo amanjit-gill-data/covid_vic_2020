@@ -32,8 +32,8 @@ a {
     text-decoration: none;
 }
 
-#introduction {
-    margin-top: 6rem;
+a:hover {
+    color: lightgrey;
 }
 
 section {
@@ -41,11 +41,25 @@ section {
     margin: 2rem;
 }
 
+/* to stop the sections from starting right at the top of the page, underneath the header, when
+the nav links are clicked */
+
+section:target {
+    padding-top: 6rem;
+    margin-top: -6rem;
+}
+
+/* so that the page contents start below the header */
+
+#introduction {
+    margin-top: 6rem;
+}
+
 h2 {
     align-items: center;
     background-color: #000;
     color: #FFF;
-    display: flex; /* just so I can control the vertical positioning */
+    display: flex; /* just so I can control the vertical text positioning */
     font-size: 2.5rem;
     font-weight: 600;
     height: 80px;
@@ -73,4 +87,9 @@ video {
 .graphs iframe {
     height: 500px;
     width: 100%;
+}
+
+footer {
+    font-size: 0.8rem;
+    text-align: center;
 }
