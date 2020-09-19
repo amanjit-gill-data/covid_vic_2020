@@ -87,7 +87,8 @@ def create_graph(lga_names):
         xaxis_title = '<b>Date</b>',
         yaxis_title = '<b>Active Cases</b>',
         font_family = 'Calibri',
-        font_size = 14
+        font_size = 14,
+        margin = dict(l=16, r=16, t=20, b=16)
     )
     return fig
 
