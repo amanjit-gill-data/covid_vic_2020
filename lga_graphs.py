@@ -88,7 +88,7 @@ def create_graph(lga_names):
         yaxis_title = '<b>Active Cases</b>',
         font_family = 'Calibri',
         font_size = 14,
-        margin = dict(l=16, r=16, t=20, b=16)
+        margin = dict(l=4, r=4, t=24, b=0)
     )
     return fig
 
