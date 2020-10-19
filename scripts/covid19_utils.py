@@ -15,7 +15,7 @@ import json
 
 def get_active_cases(date):
         
-    prefix = 'https://www.dhhs.vic.gov.au/coronavirus-update-for-victoria-'
+    prefix = 'https://www.dhhs.vic.gov.au/coronavirus-update-victoria-'
         
     y = date.year
     m = calendar.month_name[date.month].lower()
