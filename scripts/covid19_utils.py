@@ -15,7 +15,7 @@ import json
 
 def get_active_cases(date):
         
-    prefix = 'https://www.dhhs.vic.gov.au/coronavirus-update-for-victoria-'
+    prefix = 'https://www.dhhs.vic.gov.au/coronavirus-update-victoria-'
         
     y = date.year
     m = calendar.month_name[date.month].lower()
@@ -38,6 +38,18 @@ def get_active_cases(date):
     df_list = None
     suffix_index = 0
         
+    while (df_list == None and suffix_index < len(suffixes)):   
+        url = prefix + suffixes[suffix_index]
+        try:
+            df_list = pd.read_html(url)
+        except Exception:
+            suffix_index += 1
+
+    # if df_list is still None, try again with a "for" in the prefix
+
+    prefix = 'https://www.dhhs.vic.gov.au/coronavirus-update-for-victoria-'
+    suffix_index = 0
+
     while (df_list == None and suffix_index < len(suffixes)):   
         url = prefix + suffixes[suffix_index]
         try:
